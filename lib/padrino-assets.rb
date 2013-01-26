@@ -111,8 +111,8 @@ module Padrino
         load_paths << Dir["#{app.root}/assets/**"]
 
         # FIXME: Temporary fix for `padrino start`
-        app.get '/assets/*' do
-          env['PATH_INFO'].gsub!('/assets', '')
+        app.get "#{app.assets_prefix}/*" do
+          env['PATH_INFO'].gsub!(app.assets_prefix, '')
           Padrino::Assets.environment.call(env)
         end
 
