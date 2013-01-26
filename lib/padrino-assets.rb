@@ -22,8 +22,8 @@ module Padrino
       # @since 0.1.0
       # @api public
       def load_paths
-        @_load_paths ||= ['app/assets/**', 'lib/assets/**'].map do |directory|
-          Dir[Padrino.root(directory)]
+        @_load_paths ||= %w(app lib vendor).map do |directory|
+          Dir[Padrino.root("#{directory}/assets/**")]
         end.flatten
       end
 
