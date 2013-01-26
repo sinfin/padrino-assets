@@ -108,6 +108,8 @@ module Padrino
         app.set :manifest_file,   -> { File.join(app.public_folder, app.assets_prefix, 'manifest.json') }
         app.set :precompile_assets,  [ /^\w+\.(?!(?:js|css)$)/i, /^application\.(js|css)$/i ]
 
+        load_paths << Dir["#{app.root}/assets/**"]
+
         # FIXME: Temporary fix for `padrino start`
         app.get '/assets/*' do
           env['PATH_INFO'].gsub!('/assets', '')
