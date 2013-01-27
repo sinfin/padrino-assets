@@ -5,7 +5,7 @@ require 'rake'
 
 describe 'Rake Tasks' do
   let :temp_directory do
-   File.join(Dir.tmpdir, 'sprockets')
+    File.join(Dir.tmpdir, 'sprockets')
   end
 
   let(:image)      { File.join(temp_directory, environment['pony.jpg'].digest_path) }

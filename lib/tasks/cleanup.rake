@@ -1,9 +1,8 @@
 # encoding: utf-8
 namespace :assets do
   desc 'Removes backups for existing assets'
-  task :cleanup, :quanity do |task, args|
-    quanity  = args['quanity'] || 2
-    manifest = Padrino::Assets.manifest
-    manifest.cleanup(quanity)
+  task :cleanup, :keep do |task, args|
+    keep = args[:keep] || 2
+    Padrino::Assets.registered_apps.each { |app| app.sprockets_manifest.clean(keep) }
   end
 end

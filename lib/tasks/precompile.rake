@@ -2,13 +2,14 @@
 namespace :assets do
   desc 'Compiles all assets'
   task :precompile do
-    environment = Padrino::Assets.environment
-    manifest = Padrino::Assets.manifest
-    apps = Padrino.mounted_apps
-    apps.each do |app|
-      app = app.app_obj
+    Padrino::Assets.registered_apps.each do |app|
+      manifest    = app.sprockets_manifest
+      environment = app.sprockets_environment
 
-      next unless app.extensions.include?(Padrino::Assets)
+      if app.compress_assets?
+        environment.js_compressor  = Padrino::Assets.find_registered_compressor(:js,  app.js_compressor)
+        environment.css_compressor = Padrino::Assets.find_registered_compressor(:css, app.css_compressor)
+      end
 
       app.precompile_assets.each do |path|
         environment.each_logical_path.each do |logical_path|
@@ -24,10 +25,8 @@ namespace :assets do
           manifest.compile(logical_path)
         end
       end
-
-      if app.compress_assets?
-        Rake::Task['assets:compress'].invoke
-      end
     end
+
+    Rake::Task['assets:compress'].invoke
   end
 end

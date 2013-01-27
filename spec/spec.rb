@@ -22,16 +22,26 @@ module TestHelpers
   end
 
   def environment
-    Padrino::Assets.environment
+    settings.sprockets_environment
   end
 
   def manifest
-    Padrino::Assets.manifest
+    settings.sprockets_manifest
   end
 end
 
-RSpec.configure do |configuration|
-  configuration.include TestHelpers
+RSpec.configure do |config|
+  config.include TestHelpers
+
+  config.before(:each) do
+    app # touch app so we have an after_load to run
+    Padrino.after_load.each(&:call)
+  end
+
+  config.after(:each) do
+    Padrino::Assets.registered_apps.clear
+    Padrino.clear!
+  end
 end
 
 Padrino::Assets.load_paths << File.dirname(__FILE__) + '/fixtures/assets'

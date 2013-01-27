@@ -6,11 +6,6 @@ describe Padrino::Assets::Helpers do
   include Padrino::Assets::Helpers
 
   context '#assets_path' do
-    before do
-      Padrino.after_load.each(&:call)
-      Padrino.clear!
-    end
-
     it 'should prepend :assets_host when present' do
       app.set :assets_host, 'http://www.test.com'
       asset = asset_path('application.css')

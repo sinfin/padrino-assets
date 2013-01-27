@@ -2,7 +2,6 @@
 namespace :assets do
   desc 'Deletes all compiled assets'
   task :clobber do
-    manifest = Padrino::Assets.manifest
-    manifest.clobber
+    Padrino::Assets.registered_apps.each { |app| app.sprockets_manifest.clobber }
   end
 end
