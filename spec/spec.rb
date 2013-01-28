@@ -2,6 +2,8 @@ PADRINO_ENV = 'test'
 
 require 'rspec'
 require 'rspec-html-matchers'
+require 'padrino-core'
+require 'padrino-helpers'
 require 'padrino-assets'
 
 module TestHelpers

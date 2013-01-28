@@ -30,7 +30,7 @@ module Padrino
       # @since 0.1.0
       # @api public
       def registered_apps
-        @_apps ||= []
+        @_registered_apps ||= []
       end
 
       ###
@@ -75,8 +75,6 @@ module Padrino
 
       # @private
       def registered(app)
-        registered_apps << app
-
         app.helpers Helpers
         app.set :assets_prefix,   '/assets'
         app.set :assets_version,  1.0
@@ -120,6 +118,8 @@ module Padrino
         end
 
         Padrino::Tasks.files << Dir[File.dirname(__FILE__) + '/tasks/**/*.rake']
+
+        registered_apps << app
       end
     end
 
