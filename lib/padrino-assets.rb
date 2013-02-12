@@ -89,6 +89,10 @@ module Padrino
         Padrino.after_load do
           require 'sprockets'
 
+          if Padrino.mounted_apps.size > 1
+            app.set :assets_prefix, '/assets/' + app.app_name.to_s.split('/').last
+          end
+
           app.get("#{app.assets_prefix}/*") do
             env['PATH_INFO'].gsub!("#{app.assets_prefix}/", '')
             app.sprockets_environment.call(env)
