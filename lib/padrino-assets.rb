@@ -121,8 +121,6 @@ module Padrino
           app.set :sprockets_manifest,     Sprockets::Manifest.new(environment, app.manifest_file)
         end
 
-        Padrino::Tasks.files << Dir[File.dirname(__FILE__) + '/tasks/**/*.rake']
-
         registered_apps << app
       end
     end
@@ -133,3 +131,5 @@ module Padrino
     register_compressor :js,  :uglifier => 'Uglifier'
   end # Assets
 end # Padrino
+
+Padrino::Tasks.files << Dir[File.dirname(__FILE__) + '/tasks/**/*.rake']
