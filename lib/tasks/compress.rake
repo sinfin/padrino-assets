@@ -1,7 +1,7 @@
 # encoding: utf-8
 namespace :assets do
   desc 'Compresses all compiled assets'
-  task :compress do
+  task :compress => :environment do
     Padrino::Assets.registered_apps.each do |app|
       environment = app.sprockets_environment
       manifest    = app.sprockets_manifest

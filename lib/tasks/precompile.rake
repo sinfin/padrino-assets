@@ -1,7 +1,7 @@
 # encoding: utf-8
 namespace :assets do
   desc 'Compiles all assets'
-  task :precompile do
+  task :precompile => :environment do
     Padrino::Assets.registered_apps.each do |app|
       manifest    = app.sprockets_manifest
       environment = app.sprockets_environment
